@@ -1,8 +1,9 @@
+
 import { WizardRepository, SpellRepository } from "./repository.js";
 import { Cache } from "./decorators.js";
 import type { SpellCastEvent, House, Wizard } from "./types.js";
 
-// Exercice 1 et 2 : ajouter et rechercher des sorciers
+// Exercises 1 and 2: Add and search for wizards
 
 const repository = new WizardRepository();
 
@@ -20,25 +21,25 @@ const hermione = repository.add({
   active: true
 });
 
-console.log("Harry :", wizard);
-console.log("Hermione :", hermione);
+console.log("Harry:", wizard);
+console.log("Hermione:", hermione);
 
 console.log(
-  "Sorciers de Gryffindor :",
+  "Gryffindor wizards:",
   repository.findByHouse("Gryffindor")
 );
 
 console.log(
-  "Sorciers de Slytherin :",
+  "Slytherin wizards:",
   repository.findByHouse("Slytherin")
 );
 
-// Exercice 3 : utiliser Extract pour les événements de sorts
+// Exercise 3: Use Extract for spell-cast events
 
 function handleSpell(event: SpellCastEvent): void {
   console.log(
     event.wizardId,
-    "a lancé le sort",
+    "cast the spell",
     event.spell
   );
 }
@@ -49,7 +50,7 @@ handleSpell({
   spell: "Expelliarmus"
 });
 
-// Exercice 4 : valider la puissance des sorts
+// Exercise 4: Validate spell power
 
 const spellRepository = new SpellRepository();
 
@@ -60,21 +61,21 @@ spellRepository.add({
 
 try {
   spellRepository.add({
-    name: "Sort invalide",
+    name: "Invalid Spell",
     power: -5
   });
 } catch (error) {
-  console.log("Erreur :", (error as Error).message);
+  console.log("Error:", (error as Error).message);
 }
 
-console.log("Liste finale des sorts :", spellRepository.getAll());
+console.log("Final spell list:", spellRepository.getAll());
 
-// Exercice 5 : mettre en cache les résultats
+// Exercise 5: Cache calculation results
 
 class CalculationService {
   @Cache
   add(a: number, b: number): number {
-    console.log("Calcul en cours...");
+    console.log("Calculating...");
     return a + b;
   }
 }
@@ -85,7 +86,7 @@ console.log(service.add(2, 3));
 console.log(service.add(2, 3));
 console.log(service.add(4, 6));
 
-// Exercice 6 : vérifier les maisons autorisées
+// Exercise 6: Check valid houses and wizards
 
 function isHouse(value: string): value is House {
   return [
@@ -108,15 +109,15 @@ function isWizard(value: any): value is Wizard {
   );
 }
 
-console.log("Gryffindor :", isHouse("Gryffindor"));
-console.log("Durmstrang :", isHouse("Durmstrang"));
-console.log("Harry est un sorcier :", isWizard(wizard));
+console.log("Gryffindor is valid:", isHouse("Gryffindor"));
+console.log("Durmstrang is valid:", isHouse("Durmstrang"));
+console.log("Harry is a valid wizard:", isWizard(wizard));
 
 console.log(
-  "Sorcier invalide :",
+  "Invalid wizard:",
   isWizard({
     id: 3,
-    name: "Drago",
+    name: "Draco",
     house: "Durmstrang",
     level: 4,
     active: true

@@ -1,3 +1,4 @@
+
 export type House =
   | "Gryffindor"
   | "Slytherin"

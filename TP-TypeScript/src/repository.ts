@@ -1,3 +1,4 @@
+
 import type { Wizard, NewWizard, House, Spell } from "./types.js";
 import { ValidateSpellPower } from "./decorators.js";
 

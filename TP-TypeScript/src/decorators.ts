@@ -1,3 +1,4 @@
+
 import type { Spell } from "./types.js";
 
 export function ValidateSpellPower(
@@ -9,7 +10,7 @@ export function ValidateSpellPower(
 
   descriptor.value = function (spell: Spell) {
     if (spell.power < 0) {
-      throw new Error("La puissance du sort est négative !");
+      throw new Error("Spell power cannot be negative!");
     }
 
     return originalMethod.call(this, spell);
@@ -38,7 +39,7 @@ export function Cache(
     const key = JSON.stringify(args);
 
     if (cache.has(key)) {
-      console.log("Résultat récupéré du cache");
+      console.log("Result retrieved from cache");
       return cache.get(key);
     }
 
